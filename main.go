@@ -47,7 +47,7 @@ func changeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	var ttyArg = flag.String("tty", "/dev/ttyACM1", "tty that should be used to communicate with Arduino")
+	var ttyArg = flag.String("tty", "/dev/ttyACM0", "tty that should be used to communicate with Arduino")
 	flag.Parse()
 	tty = *ttyArg
 
