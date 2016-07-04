@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
@@ -10,21 +11,41 @@ import (
 
 var tty string
 
-var template string = `
-<html>
-<body>
-<a href='/change?value=0'>0</a>
-<a href='/change?value=45'>45</a>
-<a href='/change?value=90'>90</a>
-<a href='/change?value=135'>135</a>
-<a href='/change?value=180'>180</a>
-</form>
-</body>
-</html>
+var css = `
+<head>
+<style>
+a {
+	border: 1px solid black;
+	margin: 5px;
+	padding: 5px;
+	display: box;
+	text-decoration: none;
+}
+
+a, a:visited, a:active {
+	color:black;
+}
+
+a:hove {
+	color: grey;
+}
+</style>
+</head>
 `
 
+func template() string {
+	start := "<html>" + css + "<body>"
+	end := "</body></html>"
+	middle := ""
+	for i := 0; i < 180; i = i + 15 {
+		middle = middle + fmt.Sprintf("<a href='/change?value=%d'>%d</a>", i, i)
+	}
+
+	return start + middle + end
+}
+
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, template)
+	io.WriteString(w, template())
 }
 
 func changeHandler(w http.ResponseWriter, r *http.Request) {
