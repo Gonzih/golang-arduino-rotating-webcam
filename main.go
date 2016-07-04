@@ -37,7 +37,7 @@ func template() string {
 	start := "<html>" + css + "<body>"
 	end := "</body></html>"
 	middle := ""
-	for i := 0; i < 180; i = i + 15 {
+	for i := 0; i <= 180; i = i + 15 {
 		middle = middle + fmt.Sprintf("<a href='/change?value=%d'>%d</a>", i, i)
 	}
 
