@@ -49,12 +49,11 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func changeHandler(w http.ResponseWriter, r *http.Request) {
-	value := r.URL.Query()["value"]
-	if value != nil {
-		v := value[0]
-		log.Printf("Value is %v\n", v)
+	value := r.URL.Query().Get("value")
+	if len(value) != 0 {
+		log.Printf("Value is %v\n", value)
 
-		out := []byte(v)
+		out := []byte(value)
 		err := ioutil.WriteFile(tty, out, 1660)
 
 		if err != nil {
